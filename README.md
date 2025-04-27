@@ -61,4 +61,6 @@ To support additional options like -i (case-insensitive match), -c (count of mat
 -l: Print filenames with matches (exits after first match in a file).
 
 
+the hardest part of script is awk set variabls and logic flow
+
 
