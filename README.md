@@ -49,3 +49,16 @@ If -n is used (line_number=1), it prepends the line number (NR) followed by a co
 Otherwise, it prints only the matching (or non-matching) line.
 
 
+To support additional options like -i (case-insensitive match), -c (count of matching lines), and -l (list filenames with matching lines), I would expand the script to handle these options in the getopts section and adjust the awk logic accordingly.
+
+
+-i: Set IGNORECASE=1 in awk for case-insensitive matches.
+
+
+-c: Count matching lines and print totals (per file if multiple files).
+
+
+-l: Print filenames with matches (exits after first match in a file).
+
+
+
