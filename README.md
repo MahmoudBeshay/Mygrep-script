@@ -4,33 +4,42 @@
 
 ## Q1: How does your script handle arguments and options?
 
-- The script uses `getopts` to handle the `-v` (invert match) and `-n` (line number) options.
-- It checks separately for the `-h` option using an `if` statement to display help when needed.
-- After parsing options, it uses `shift` so that:
-  - `$1` becomes the search **pattern**.
-  - `$2` becomes the **filename**.
-- It validates input:
-  - Checks if the pattern and filename are provided.
-  - Displays an error if either is missing.
-  - Shows an "invalid option" error if an unsupported flag is passed.
-- It uses `awk`, passing Bash variables into the `awk` block to control matching based on selected options.
+-Any options the user passes, such as `-v` (invert match) or `-n` (show line numbers), are processed by the script using `getopts`.
+
+-It reads the options, then moves them out of the way, leaving the filename and the pattern to look for as the only arguments left.
+
+-It verifies that the correct number of parameters (pattern and filename) are supplied.
+
+-It displays an error message and ends if something is missing.
+
+-Additionally, it verifies that the file is exist before attempting to search within it.
+
+-The script executes `awk` to either print line numbers, invert the match, or search normally, depending on which options were selected.
 
 ---
 
 ## Q2: If you were to support regex, or add `-i`, `-c`, or `-l` options, how would your structure change?
 
-- I would expand the `getopts` parsing to handle new flags like `-i`, `-c`, and `-l`.
-- For `-i`, I would set or unset the `IGNORECASE` setting in `awk` based on whether case-insensitive matching is requested.
-- For `-c`, I would modify the `awk` logic to count matching lines and print the total count at the end.
-- For `-l`, I would adjust the `awk` script to print the filename and exit after the first match is found.
-- I would reorganize the script to separate the construction of the `awk` command based on active options for easier maintenance and scalability.
+- In the 'getopts section', I'd add cases for `i`, `c`, and `l`.
+- Then, after parsing options, I would adjust the `awk` command depending on which flags were set.
+    - Make case insenstive optinal only with `-i`
+    - Make output count only number with `-c`
+      ```
+       awk -v pattern="$pattern" '$0 !~ pattern {count++} END {print count}' "$filename"
+      ```
+    -Make it output the filename only if it matches the pattern when `-l` used
+     ```
+      awk -v pattern="$pattern" '$0 !~ pattern {count++} END {print count}' "$filename"
+     ```
 
+    
 ---
 
 ## Q3: What part of the script was hardest to implement and why?
 
-- The hardest part was correctly setting up the variables and logic inside the `awk` block.
-- Ensuring that the `-v` (invert match) and `-n` (line numbers) options could work both independently and together required careful conditional handling.
-- Small mistakes in logical conditions could cause incorrect output, so precise flow control was crucial.
+The hardest part of the script was the `AWK` section
+set conditons depending on options the user used 
+try not get conflict 
+and the more option the difficult increses
 
 ---
