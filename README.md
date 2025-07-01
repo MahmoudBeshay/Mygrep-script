@@ -1,4 +1,6 @@
 # Mygrep Script — Reflective Q&A
+it is ibrahim
+second is ibrahim
 
 ---
 
