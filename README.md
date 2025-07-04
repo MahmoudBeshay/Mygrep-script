@@ -1,7 +1,4 @@
 # Mygrep Script — Reflective Q&A
-it is ibrahim
-second is ibrahim
-
 ---
 
 ## Q1: How does your script handle arguments and options?
