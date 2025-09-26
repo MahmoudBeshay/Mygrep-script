@@ -1,0 +1,13 @@
+name: Test Runner
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  test:
+    runs-on: self-hosted   # 👈 this tells GitHub to use your Kubernetes runner
+    steps:
+      - run: echo "✅ Runner is working inside Kubernetes!"
+      - run: uname -a
+      - run: hostname
